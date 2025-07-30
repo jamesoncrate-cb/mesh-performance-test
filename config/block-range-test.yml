@@ -1,0 +1,55 @@
+---
+test-name: "block-range-test"
+base-url: "http://localhost:8080"
+block-range:
+  enabled: true
+  start: 22935011
+  end: 22935030
+performance:
+  concurrent-requests: 1
+  total-requests: 1
+  timeout-seconds: 30
+  warm-up-requests: 0
+  metrics:
+    - "response_time"
+    - "throughput"
+    - "success_rate"
+    - "error_rate"
+endpoints:
+  # This endpoint doesn't use block index, so it will only be tested once
+  - path: "/network/status"
+    method: "POST"
+    payload:
+      network_identifier:
+        blockchain: "Ethereum"
+        network: "Mainnet"
+      metadata: {}
+  
+  # This endpoint uses block index, so it will be tested for each block in the range
+  - path: "/block"
+    method: "POST"
+    uses-block-index: true
+    payload:
+      network_identifier:
+        blockchain: "Ethereum"
+        network: "Mainnet"
+      block_identifier:
+        index: 1  # This will be replaced with each block number
+  
+  # This endpoint also uses block index for getting account balance at specific blocks
+  - path: "/account/balance"
+    method: "POST"
+    uses-block-index: true
+    payload:
+      network_identifier:
+        blockchain: "Ethereum"
+        network: "Mainnet"
+      account_identifier:
+        address: "0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe"
+        metadata: {}
+      block_identifier:
+        index: 1  # This will be replaced with each block number
+      currencies:
+        - symbol: "ETH"
+          decimals: 18
+          metadata: {} 
