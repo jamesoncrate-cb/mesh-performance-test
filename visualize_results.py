@@ -9,8 +9,7 @@ import json
 import argparse
 import matplotlib.pyplot as plt
 import numpy as np
-from datetime import datetime
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any
 import os
 from matplotlib import rcParams
 
@@ -290,9 +289,7 @@ class PerformanceVisualizer:
             if response_times_ms:
                 # Calculate statistics
                 mean_time = np.mean(response_times_ms)
-                median_time = np.median(response_times_ms)
                 p95_time = np.percentile(response_times_ms, 95)
-                p99_time = np.percentile(response_times_ms, 99)
 
                 # Create histogram with gradient colors
                 n_bins = min(40, int(np.sqrt(len(response_times_ms)) * 1.5))
@@ -495,7 +492,7 @@ class PerformanceVisualizer:
         # Generate summary statistics
         self.generate_summary_stats()
 
-        print(f"\n✨ All visualizations completed!")
+        print("\n✨ All visualizations completed!")
         print(f"📁 Output directory: {self.output_dir}\n")
 
 

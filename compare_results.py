@@ -10,8 +10,7 @@ import json
 import argparse
 import matplotlib.pyplot as plt
 import numpy as np
-from datetime import datetime
-from typing import Dict, List, Any, Optional, Tuple
+from typing import Dict, List, Any, Tuple
 import os
 from matplotlib import rcParams
 
@@ -565,7 +564,7 @@ class PerformanceComparator:
 
     def generate_all_comparisons(self):
         """Generate all comparison visualizations and reports."""
-        print(f"\n📊 Comparing performance results...")
+        print("\n📊 Comparing performance results...")
         print(f"   Test 1: {self.test1_name}")
         print(f"   Test 2: {self.test2_name}\n")
 
@@ -578,7 +577,7 @@ class PerformanceComparator:
         # Generate text report
         self.generate_comparison_report()
 
-        print(f"\n✨ All comparisons completed!")
+        print("\n✨ All comparisons completed!")
         print(f"📁 Output directory: {self.output_dir}\n")
 
 

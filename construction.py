@@ -14,19 +14,13 @@ Requirements:
     pip install requests python-dotenv ecdsa
 """
 
-import binascii
 import requests
 import json
 import argparse
 import sys
 import os
-import codecs
-import ecdsa
 from typing import Dict, Any, Optional
 from dotenv import load_dotenv
-import sha3
-from eth_keys import keys
-from eth_utils import hexadecimal
 
 
 # Base URL for local Rosetta node
@@ -43,12 +37,9 @@ FROM_ADDRESS = None
 TO_ADDRESS = None
 PUBLIC_KEY = None
 PRIVATE_KEY = None
-# EXAMPLE_UNSIGNED_TX = "{\"from\":\"0xCD0e5427035F757aC2cE8804152e160607a277Ff\",\"to\":\"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed\",\"value\":\"50\",\"nonce\":0,\"gas_price\":\"20000000000\",\"gas_limit\":21000,\"chain_id\":11155111}"
-# EXAMPLE_SIGNED_TX = "{\"signed_transaction\":\"0xf868808504a817c800825208945aaeb6053f3e94c9b9a09f33669435e7ef1beaed32808401546d71a00f09b11aeb64dc91fdcc0adff499069804a81943c708b022ad1e4ff321636513a07b9ca57b587cb1b9f06e2427726d5924b8c9f2222c08dc2b3b9b540cda281ea3\",\"currency\":{\"decimals\":18,\"symbol\":\"ETH\"}}"
-# EXAMPLE_SIGNED_HASH = "0x0f09b11aeb64dc91fdcc0adff499069804a81943c708b022ad1e4ff3216365137b9ca57b587cb1b9f06e2427726d5924b8c9f2222c08dc2b3b9b540cda281ea31b"
-EXAMPLE_UNSIGNED_TX = '{"from":"0xCD0e5427035F757aC2cE8804152e160607a277Ff","to":"0x786896Bb6f6ff73c9fBa9651d20a4a536ECD0BeF","value":"50","nonce":0,"gas_price":"20000000000","gas_limit":21000,"chain_id":4801}'
-EXAMPLE_SIGNED_TX = '{"signed_transaction":"0xf866808504a817c80082520894786896bb6f6ff73c9fba9651d20a4a536ecd0bef32808225a5a0d7f56921caad50cdd568f17df2f5916ebeaf78502fb864faf7225bb0649e7ac6a051671ac937e4337761bf5a69b926c227c16f81acdb8183407fc88e19c57334e9","currency":{"decimals":18,"symbol":"ETH"}}'
-EXAMPLE_SIGNED_HASH = "0xd7f56921caad50cdd568f17df2f5916ebeaf78502fb864faf7225bb0649e7ac651671ac937e4337761bf5a69b926c227c16f81acdb8183407fc88e19c57334e91b"
+EXAMPLE_UNSIGNED_TX = 'PUT UNSIGNED TRANSACTION HERE'
+EXAMPLE_SIGNED_TX = 'PUT SIGNED TRANSACTION HERE'
+EXAMPLE_SIGNED_HASH = "PUT SIGNED HASH HERE"
 
 
 def load_environment(env_file: Optional[str] = None):
@@ -91,7 +82,6 @@ def load_environment(env_file: Optional[str] = None):
 
     # Set default TO_ADDRESS if not provided
     if not TO_ADDRESS:
-        # TO_ADDRESS = "5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed"  # Example address
         TO_ADDRESS = "786896Bb6f6ff73c9fBa9651d20a4a536ECD0BeF"  # Example address
 
 
@@ -100,10 +90,10 @@ def pretty_print_response(endpoint: str, response: requests.Response) -> None:
     print(f"\n{'=' * 60}")
     print(f"Endpoint: {endpoint}")
     print(f"Status Code: {response.status_code}")
-    print(f"Response:")
+    print("Response:")
     try:
         print(json.dumps(response.json(), indent=2))
-    except:
+    except TypeError:
         print(response.text)
     print(f"{'=' * 60}\n")
 
